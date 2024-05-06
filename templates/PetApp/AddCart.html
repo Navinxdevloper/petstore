@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add to Cart</title>
+    <style>
+        /* CSS styles for the add to cart form */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            /* Background gradient */
+            /* Background animation */
+        }
+
+        .add-cart {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 1s ease; 
+            background: linear-gradient(to bottom right, #ff4d4d, blue);/* Animation for form */
+            animation: gradientAnimation 5s ease infinite alternate;
+        }
+
+        .add-cart h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .cart-form input[type="text"],
+        .cart-form select,
+        .cart-form input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            transition: border-color 0.3s ease;
+            color: black;
+        }
+
+        .cart-form input[type="submit"] {
+            background-color: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cart-form input[type="submit"]:hover {
+            background-color: white;
+            color: black;
+            font-weight: 600;
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    {% include 'petapp/Header.html' %}
+    
+    <!-- Add to Cart Form -->
+    <div class="add-cart">
+        <h1>Add to Cart</h1>
+        <form action="{% url 'addCart' pet.id %}" method="post" class="cart-form">
+            {% csrf_token %}
+            <input type="text" name="emailId" value="{{ request.session.username }}" readonly><br>
+            <input type="text" name="pId" value="{{ pet.id }}" readonly><br>
+            <input type="text" name="name" value="{{ pet.name }}" readonly><br>
+            <input type="text" name="cat" value="{{ pet.cat }}" readonly><br>
+            <input type="text" name="price" value="{{ pet.price }}" readonly><br>
+            <select name="quantity">
+                {% for i in quant %}
+                <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select><br>
+            <input type="text" name="totalPrice" placeholder="Enter Total Price"><br>
+            <input type="submit" value="Add to Cart">
+        </form>
+    </div>
+
+    <!-- Footer -->
+    {% include 'petapp/Footer.html' %}
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Page</title>
+  <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+  <style>
+    /* Background gradient */
+
+     
+    
+
+
+    /* Payment container styling */
+    #payment-container {
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      animation: slide-in 0.5s ease-out;
+      color: black;
+      font-weight: 600;
+      background: linear-gradient(to bottom right, rgb(0, 166, 255), rgb(2, 255, 2));
+    }
+
+    /* PayPal button container styling */
+    #smart-button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    /* PayPal button styling */
+    #paypal-button-container {
+      margin-top: 20px;
+    }
+
+    .button {
+      padding: 10px 20px;
+      background-color: black;
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      border: none;
+    }
+
+    .button:hover {
+      background-color: white;
+      color: black;
+      font-weight: 600;
+      border: none;
+    }
+
+    .button:hover {
+      background-color: white;
+      color: black;
+      font-weight: 600;
+      border: none;
+    }
+
+    @keyframes slide-in {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+  <script>
+    var orderId = {{ order.ordernumber }};
+    var amount = {{ total }};
+
+    function initPayPalButton() {
+      paypal.Buttons({
+        style: {
+          shape: 'rect',
+          color: 'black',
+          layout: 'vertical',
+          label: 'paypal',
+          height: 50,
+          tagline: false,
+          border_radius: 20,
+          background_color: 'white',
+          color: 'black',
+          transition: 'background-color 0.3s',
+        },
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              "amount": {
+                "currency_code": "USD",
+                "value": amount
+              }
+            }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(orderData) {
+            console.log(orderData.id);
+            var data = orderData['id'];
+            const element = document.getElementById('paypal-button-container');
+            element.innerHTML = '';
+            element.innerHTML = '<h3>Thank you for your payment!</h3>';
+            odata = {{ order.ordernumber }};
+            window.location.replace("/paymentsucess/" + data + "/" + odata + "/");
+          });
+        },
+        onError: function(err) {
+          console.log(err);
+        }
+      }).render('#paypal-button-container');
+    }
+  </script>
+</head>
+
+<body>
+  {% include 'petapp/Header.html'%}
+  <div id="payment-container">
+    <p id="total">{{ total }}</p>
+    <p id="number">{{ order.ordernumber }}</p>
+    <p id="orderId">{{ order.orderId }}</p>
+    <p id="emailId">{{ order.emailId }}</p>
+    <p id="name">{{ order.name }}</p>
+    <p id="address">{{ order.address }}</p>
+    <p id="city">{{ order.city }}</p>
+    <p id="state">{{ order.state }}</p>
+    <p id="pincode">{{ order.pincode }}</p>
+    <p id="phoneno">{{ order.phoneno }}</p>
+    <div id="smart-button-container">
+      <div style="text-align: center;">
+        <div id="paypal-button-container"></div>
+      </div>
+      <button onclick="initPayPalButton()" class="button" name="paypal" id="paypal">Make Payment</button>
+    </div>
+  </div>
+  {% include 'petapp/Footer.html'%}
+</body>
+
+</html>

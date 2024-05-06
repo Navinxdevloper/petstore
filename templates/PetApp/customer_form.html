@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Styling for the form */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+        form {
+            max-width: 500px;
+            margin: 60px auto;
+            background: linear-gradient(to right, #72b4ff 0%, #91e4fc 50%, #a4fc9d 100%);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            color: black;
+            font-weight: 500;
+        }
+        input[type="submit"] {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: white;
+            color: black;
+            border: none;
+            font-weight: 600;
+        }
+        /* Styling for the form elements */
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            box-sizing: border-box;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            box-sizing: border-box;
+            height: 150px;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+    {% include 'petapp/Header.html'%}
+    <form action="" method="post" align="center">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input type="submit" value="submit">
+    </form>
+    {% include 'petapp/Footer.html'%}
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+           /* Applying linear gradient background */
+            margin: 0; /* Removing default margin */
+            padding: 0; /* Removing default padding */
+        }
+        .pet-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow the pets to wrap to the next line */
+    justify-content: center; /* Center the pets horizontally */
+}
+
+        .order-form {
+            margin: 60px auto; /* Centering the form */
+            padding: 20px;
+            width: 40%;
+            background: linear-gradient(to right, red, orange);  /* Adding semi-transparent white background to form */
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+            color: white;
+            flex: 0 0 calc(26.33% - 40px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .order-form input[type="submit"] {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: black; /* Blue button color */
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 150px;
+        }
+
+        .order-form input[type="submit"]:hover {
+            background-color: white; /* Darkening button color on hover */
+            color: black;
+            font-weight: 600;
+            width: 150px;
+        }
+
+        .order-details {
+            margin-bottom: 20px;
+        }
+
+        .order-details p {
+            margin: 5px 0; /* Adjusting margin for order details */
+        }
+    </style>
+</head>
+<body>
+    {% include 'petapp/Header.html'%}
+  
+    <div class="pet-container">
+        {% for i in cart %}
+    <form action="placeorder" class="order-form">
+        {%csrf_token%}
+        <div class="order-details">
+            <p><strong>EmailId:</strong> {{ i.emailId.emailId }}</p>
+            <p><strong>Product Id:</strong> {{ i.pid.id }}</p>
+            <p><strong>Product Name:</strong> {{ i.pid.name }}</p>
+            <p><strong>Product Category:</strong> {{ i.pid.cat }}</p>
+            <p><strong>Product Details:</strong> {{ i.pid.details }}</p>
+            <p><strong>Product Price:</strong> {{ i.pid.price }}</p>
+            <p><strong>Product Quantity:</strong> {{ i.quantity }}</p>
+            <p><strong>Product Total Price:</strong> {{ i.totalPrice }}</p>
+        </div>
+        <input type="submit" value="Show Order">
+    </form>
+    {% endfor %}
+    </div>
+    {% include 'petapp/Footer.html'%}
+</body>
+</html>

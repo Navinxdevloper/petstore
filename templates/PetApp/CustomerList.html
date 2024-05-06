@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .customer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .customer-card {
+            flex: 0 0 calc(33.33% - 40px); /* Adjusted to display 3 cards per row */
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 16px black;
+            margin-bottom: 20px;
+            width: 300px;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+            margin: 20px;
+        }
+
+        .customer-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .customer-details {
+            padding: 20px;
+        }
+
+        .customer-details p {
+            margin: 0 0 5px 0;
+        }
+
+        .customer-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #f8f8f8;
+            border-top: 1px solid #eee;
+        }
+
+        .customer-actions:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .customer-actions a {
+            text-decoration: none;
+            color: black;
+            transition: color 0.3s ease;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .customer-actions a:hover {
+            color: white;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    {% include 'petapp/Header.html'%}
+    <div class="customer-container">
+        {% for c in customers %}
+        <div class="customer-card">
+            <div class="customer-details">
+                <p><strong>Name:</strong> {{ c.name }}</p>
+                <p><strong>Email ID:</strong> {{ c.emailId }}</p>
+                <p><strong>Password:</strong> {{ c.password }}</p>
+                <p><strong>Address:</strong> {{ c.address }}</p>
+                <p><strong>Contact No:</strong> {{ c.contactNo }}</p>
+            </div>
+            <div class="customer-actions">
+                <!-- Add your actions here -->
+                <a href='edit/{{ c.emailId }}'>Edit</a>
+                <a href='delete/{{ c.emailId }}'>Delete</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% include 'petapp/Footer.html'%}
+</body>
+</html>

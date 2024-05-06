@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Listing</title>
+    <style>
+        .pet-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow the pets to wrap to the next line */
+    justify-content: center; /* Center the pets horizontally */
+}
+
+        .pet-card {
+            flex: 0 0 calc(26.33% - 40px);
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 16px black;
+            margin-bottom: 20px;
+            width: 300px;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+            margin: 60px auto; /* Centering the pet cards */
+        }
+
+        .pet-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pet-image {
+            width: 100%;
+            height: auto;
+            border-top-left-radius: 16px; /* Adjusting border radius */
+            border-top-right-radius: 16px; /* Adjusting border radius */
+        }
+
+        .pet-details {
+            padding: 20px;
+        }
+
+        .pet-details h3 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+        }
+
+        .pet-details p {
+            margin: 0 0 5px 0; /* Adjusting margin for pet details */
+        }
+
+        .pet-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #f8f8f8;
+            border-top: 1px solid #eee;
+        }
+
+        .pet-actions:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .pet-actions a {
+            text-decoration: none;
+            color: black;
+            transition: color 0.3s ease;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .pet-actions a:hover {
+            color: white;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    {% include 'petapp/Header.html'%}
+    <div class="pet-container">
+    {% for pet in pets %}
+    <div class="pet-card">
+        <img class="pet-image" src="/{{ pet.pet_image }}" alt="{{ pet.name }}">
+        <div class="pet-details">
+            <h3>{{ pet.name }}</h3>
+            <p><strong>ID:</strong> {{ pet.id }}</p>
+            <p><strong>Gender:</strong> {{ pet.gender }}</p>
+            <p><strong>Breed:</strong> {{ pet.breed }}</p>
+            <p><strong>Age:</strong> {{ pet.age }}</p>
+            <p><strong>Price:</strong> {{ pet.price }}</p>
+            <p><strong>Species:</strong> {{ pet.species }}</p>
+            <p><strong>Description:</strong> {{ pet.description }}</p>
+        </div>
+        <div class="pet-actions">
+            <!-- Add your actions here -->
+            {% if request.session.username is None and request.session.adminEmailId is not None %}
+                <a href='edit/{{ pet.id }}'>Edit</a>
+                <a href='delete/{{ pet.id }}'>Delete</a>
+            {% endif %}
+            {% if request.session.username is not None and request.session.adminEmailId is None %}
+                <a href="addCart/{{ pet.id }}">Add to Cart</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+ 
+    {% include 'petapp/Footer.html'%}
+</body>
+</html>

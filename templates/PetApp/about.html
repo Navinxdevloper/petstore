@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <script src="https://kit.fontawesome.com/3b161c540c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+         @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+         .aboutcontainer {
+            column-gap: 10px;
+        }
+
+        .aboutheader {
+            padding: 3%;
+            font-size: 42px;
+            text-decoration: underline;
+            color: black;
+        }
+
+        .aboutheader2 {
+            padding: 30px;
+            margin: 10px;
+            font-size: 26px;
+            font-weight: 600;
+            color: black;
+        }
+
+        .aboutparagraph {
+            padding: 10px;
+            font-size: 20px;
+            color: black;
+            margin: 10px;
+        }
+
+        .games {
+            margin: 50px auto;
+            max-width: 1200px;
+        }
+
+        .aboutheader {
+            font-size: 32px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .owl-carousel .owl-item img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            padding: 30px;
+        }
+
+        .owl-carousel .owl-item img:hover {
+            transform: scale(1.1);
+        }
+
+        .owl-carousel .owl-nav button.owl-prev,
+        .owl-carousel .owl-nav button.owl-next {
+            background-color: white;
+            color: black;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            transition: background-color 0.3s ease;
+            padding: 20px;
+            border: 2px solid black;
+            margin-top: -25px;
+        }
+
+        .owl-carousel .owl-nav button.owl-prev:hover,
+        .owl-carousel .owl-nav button.owl-next:hover {
+            background-color: black;
+            color: white;
+            border-color: black;
+        }
+
+        .owl-carousel .owl-dots {
+            display: none;
+        }
+
+        .game-card {
+            position: relative;
+            padding: 20px;
+        }
+
+        .game-data {
+            position: absolute;
+            top: 50%;
+            left: 65%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 14px;
+            text-align: center;
+            display: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .game-data h4,
+        .game-data p,
+        .game-data .play-btn {
+            color: white;
+        }
+
+        .game-data .play-btn {
+            background-color: black;
+            border: none;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .game-data .play-btn:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .game-card:hover .game-data {
+            display: block;
+        }
+
+        .game-data p {
+            margin-bottom: 10px;
+        }
+
+        .game-data .genre {
+            font-style: italic;
+        }
+
+        .game-data .rating {
+            margin-top: 5px;
+        }
+
+        .game-data .description {
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .game-section {
+            padding: 60px 50px;
+            padding-top: 8%;
+        }
+
+        .game-section .owl-stage {
+            margin: 15px 0;
+            display: flex;
+            display: -webkit-flex;
+        }
+
+        .game-section .item {
+            margin: 0 15px 60px;
+            width: 320px;
+            height: 400px;
+            display: flex;
+            display: -webkit-flex;
+            align-items: flex-end;
+            -webkit-align-items: flex-end;
+            background: #343434 no-repeat center center / cover;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s ease-in-out;
+            -webkit-transition: all 0.4s ease-in-out;
+            cursor: pointer;
+        }
+
+        .game-section .item.active {
+            width: 500px;
+            box-shadow: 12px 40px 40px rgba(0, 0, 0, 0.25);
+            -webkit-box-shadow: 12px 40px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .game-section .item:after {
+            content: "";
+            display: block;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            top: 0;
+            background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+        }
+
+        .game-section .item-desc {
+            padding: 0 24px 12px;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            transform: translateY(calc(100% - 54px));
+            -webkit-transform: translateY(calc(100% - 54px));
+            transition: all 0.4s ease-in-out;
+            -webkit-transition: all 0.4s ease-in-out;
+        }
+
+        .game-section .item.active .item-desc {
+            transform: none;
+            -webkit-transform: none;
+        }
+
+        .game-section .item-desc p {
+            opacity: 0;
+            -webkit-transform: translateY(32px);
+            transform: translateY(32px);
+            transition: all 0.4s ease-in-out 0.2s;
+            -webkit-transition: all 0.4s ease-in-out 0.2s;
+        }
+
+        .game-section .item.active .item-desc p {
+            opacity: 1;
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+        }
+
+        .game-section .owl-theme.custom-carousel .owl-dots {
+            margin-top: -20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        @media (min-width: 992px) and (max-width: 1199px) {
+            h2 {
+                margin-bottom: 32px;
+            }
+
+            h3 {
+                margin: 0 0 8px;
+                font-size: 24px;
+                line-height: 32px;
+            }
+
+            .game-section {
+                padding: 50px 30px;
+            }
+
+            .game-section .item {
+                margin: 0 12px 60px;
+                width: 260px;
+                height: 360px;
+            }
+
+            .game-section .item.active {
+                width: 400px;
+            }
+
+            .game-section .item-desc {
+                transform: translateY(calc(100% - 46px));
+                -webkit-transform: translateY(calc(100% - 46px));
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            h2 {
+                margin-bottom: 32px;
+            }
+
+            h3 {
+                margin: 0 0 8px;
+                font-size: 24px;
+                line-height: 32px;
+            }
+
+            .line-title {
+                width: 330px;
+            }
+
+            .game-section {
+                padding: 50px 30px 40px;
+            }
+
+            .game-section .item {
+                margin: 0 12px 60px;
+                width: 240px;
+                height: 330px;
+            }
+
+            .game-section .item.active {
+                width: 360px;
+            }
+
+            .game-section .item-desc {
+                transform: translateY(calc(100% - 42px));
+                -webkit-transform: translateY(calc(100% - 42px));
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                font-size: 14px;
+            }
+
+            h2 {
+                margin-bottom: 20px;
+            }
+
+            h3 {
+                margin: 0 0 8px;
+                font-size: 19px;
+                line-height: 24px;
+            }
+
+            .line-title {
+                width: 250px;
+            }
+
+            .game-section {
+                padding: 30px 15px 20px;
+            }
+
+            .game-section .item {
+                margin: 0 10px 40px;
+                width: 200px;
+                height: 280px;
+            }
+
+            .game-section .item.active {
+                width: 270px;
+                box-shadow: 6px 10px 10px rgba(0, 0, 0, 0.25);
+                -webkit-box-shadow: 6px 10px 10px rgba(0, 0, 0, 0.25);
+            }
+
+            .game-section .item-desc {
+                padding: 0 14px 5px;
+                transform: translateY(calc(100% - 42px));
+                -webkit-transform: translateY(calc(100% - 42px));
+            }
+        }
+
+        .owl-dots {
+            display: none !important;
+        }
+
+        .item-desc {
+            display: block;
+        }
+
+        .line-title {
+            position: relative;
+            width: 400px;
+        }
+
+        .line-title::before,
+        .line-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        .line-title::before {
+            width: 100%;
+            background: #f2f2f2;
+        }
+
+        .line-title::after {
+            width: 32px;
+            background: #e73700;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        a:hover {
+            color: aqua;
+        }
+
+        .read-more{
+            background-color: black;
+            color: white;
+            width: 150px;
+            height: 50px;
+            padding: 5px;
+            font-weight: 600;
+            border-radius: 20px;
+        }
+
+        .read-more:hover{
+            background-color:aqua;
+            color: black;
+            border: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    {% include 'petapp/Header.html'%}
+    <div class="aboutcontainer">
+        <h3 class="aboutheader">About</h3>
+        <img src="{% static 'images_1/Doge-meme-2.webp' %}" alt="" width="650px" height="450px"
+            style="padding: 40px; float: left; border-radius: 20px;" class="about-image">
+        <div class="data">
+            <h4 class="aboutheader2">Just design & compose, cooperating with clients who want the best for their
+                business.</h4>
+            <p class="aboutparagraph">We’re a design studio with more than 13 years of experience in branding and
+                digital. Throughout these years, we re-discovered the essence of our clients. We create innovative
+                digital products and future-oriented brands. Our premise is to always drive positive change in people,
+                companies, and organizations.</p>
+            <button class="read-more" >Read more</button>
+        </div>
+    </div>
+
+    <section class="game-section">
+        <h2 class="line-title">Our Team</h2>
+        <div class="owl-carousel custom-carousel owl-theme">
+            <div class="item"
+                style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg);">
+                <div class="item-desc">
+                    <h3>Natalia (E-commerce Manager)</h3>
+                    <p style="display: block;">Dota 2 is a multiplayer online battle arena by Valve. The game is a
+                        sequel to Defense of the Ancients, which was a community-created mod for Blizzard
+                        Entertainment's Warcraft III.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url(https://wallpapercave.com/wp/wp2983703.jpg);">
+                <div class="item-desc">
+                    <h3>Aylin (Digital Marketing Specialist)</h3>
+                    <p style="display: block;">Dota 2 is a multiplayer online battle arena by Valve. The game is a
+                        sequel to Defense of the Ancients, which was a community-created mod for Blizzard
+                        Entertainment's Warcraft III.</p>
+                </div>
+            </div>
+            <div class="item"
+                style="background-image: url(https://cdn.acidcow.com/pics/20120426/most_beautiful_woman_03.jpg);">
+                <div class="item-desc">
+                    <h3>Nora (Website Developer)
+                    </h3>
+                    <p style="display: block;">Dota 2 is a multiplayer online battle arena by Valve. The game is a
+                        sequel to Defense of the Ancients, which was a community-created mod for Blizzard
+                        Entertainment's Warcraft III.</p>
+                </div>
+            </div>
+            <div class="item"
+                style="background-image: url(https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
+                <div class="item-desc">
+                    <h3>Elsa (Customer Service Representative)</h3>
+                    <p style="display: block;">Dota 2 is a multiplayer online battle arena by Valve. The game is a
+                        sequel to Defense of the Ancients, which was a community-created mod for Blizzard
+                        Entertainment's Warcraft III.</p>
+                </div>
+            </div>
+            <div class="item"
+                style="background-image: url(https://d3ui957tjb5bqd.cloudfront.net/images/screenshots/products/57/572/572355/af9zbvjhzn6nwixuaxpvmk8inomlvgywioutr2nzru6jplsbkzwe6zkfexz89dcq-o.jpg?1437337311);">
+                <div class="item-desc">
+                    <h3>Sophia (Supply Chain Coordinator)</h3>
+                    <p style="display: block;">Dota 2 is a multiplayer online battle arena by Valve. The game is a
+                        sequel to Defense of the Ancients, which was a community-created mod for Blizzard
+                        Entertainment's Warcraft III.</p>
+                </div>
+            </div>
+            <div class="item"
+                style="background-image: url(https://lh3.googleusercontent.com/S8svmmzxH_fVi_i3yoL50AhYXFMRtkxwJXC-G4N0lgITLIkKYm7JFl_Ra_5rn2mZLQBjPF6ASSQBvphgPYgJ3v5O16Yvpn8H=w1600-rj-nu-e365);">
+                <div class="item-desc">
+                    <h3>Astrid (Data Analyst)</h3>
+                    <p style="display: block;">Dota 2 is a multiplayer online battle arena by Valve. The game is a
+                        sequel to Defense of the Ancients, which was a community-created mod for Blizzard
+                        Entertainment's Warcraft III.</p>
+                </div>
+            </div>
+            <div class="item"
+                style="background-image: url(https://i.pinimg.com/originals/96/ef/2c/96ef2c9a4347278ef1a5a2c8e73360c6.jpg);   object-fit: cover;">
+                <div class="item-desc">
+                    <h3>Lily (Copywriter)</h3>
+                    <p style="display: block;">Dota 2 is a multiplayer online battle arena by Valve. The game is a
+                        sequel to Defense of the Ancients, which was a community-created mod for Blizzard
+                        Entertainment's Warcraft III.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url(https://static.toiimg.com/photo/83890812.cms);">
+                <div class="item-desc">
+                    <h3>Ava (Online Merchandiser)</h3>
+                    <p style="display: block;">Dota 2 is a multiplayer online battle arena by Valve. The game is a
+                        sequel to Defense of the Ancients, which was a community-created mod for Blizzard
+                        Entertainment's Warcraft III.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% include 'petapp/Footer.html'%}
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            console.log("Document is ready. Owl Carousel initializing...");
+            $(".custom-carousel").owlCarousel({
+                items: 4,
+                loop: true,
+                autoplay: true,
+                autoplayTimeout: 1000, // Adjust slide interval as needed
+                autoplayHoverPause: true
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Order</title>
+    <style>
+       
+
+        form {
+            max-width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(to bottom right, blue, rgb(0, 255, 255));
+            margin: 50px auto;
+        }
+        
+        form input[type="text"] {
+            width: calc(100% - 16px); /* Adjusting for padding and border */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            box-sizing: border-box;
+        }
+
+        form input[type="submit"] {
+            width: 50%;
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: background-color 0.3s;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: white;
+            color: black;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    {%include "PetApp/Header.html"%}
+    <form action="placeorder" method="post">
+        {%csrf_token%}
+        <input type="text" name="emailId" value="g@gamil.com"><br>
+        <input type="text" name="name" placeholder="Enter the name"><br>
+        <input type="text" name="address" placeholder="Enter the address"><br>
+        <input type="text" name="city" placeholder="Enter the city"><br>
+        <input type="text" name="state" placeholder="Enter the state"><br>
+        <input type="text" name="pincode" placeholder="Enter the pincode"><br>
+        <input type="text" name="phoneno" placeholder="Enter the phoneno"><br>   
+        <input type="submit" value="Place Order">
+    </form>
+    {%include "PetApp/Footer.html"%}
+</body>
+</html>
